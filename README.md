@@ -3,8 +3,8 @@ medi-button-service
 
 # API
 ### Buttons
-- `POST` `/users/{userId}/buttons'
-- `POST` `/buttons'
+- `POST` `/users/{userId}/buttons`
+- `POST` `/buttons`
 - `GET` `/buttons/{buttonId}`
 
 ### Presses
@@ -45,7 +45,7 @@ var schedule = {
     frequency: 2,
     frequencyUnit: 'day',
     period: 43200000,   // 12 hours in milliseconds
-    resetAutomatically: false // button triggers reset, true=time triggered reset regardless of button press
+    resetAutomatically: false // false = button press resets timer, true=timer resets regardless of button press
 }
 ```
 ```js
@@ -56,6 +56,15 @@ var alert = {
     sms: "9724142777",      // iff action == sms
     email: "steven@gangstead.com", // iff action email
     webhook: "http://example.com/mywebhook/123" // iff action = webhook, will POST 
+}
+```
+```js
+var user = {
+    id: 'd5e39959-c359-4ef2-b9e5-67e0628449f4',
+    name: 'Steven Gangstead',
+    email: 'steven@gangstead.com',
+    login: 'gangstead',
+    confirmed: true
 }
 ```
 
