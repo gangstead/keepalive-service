@@ -38,6 +38,13 @@ var button = {
 }
 ```
 ```js
+var press = {
+    id: 'f8546bc5-39ed-4334-b39e-592ec4666bea'
+    buttonId: 'f3d2cbb0-ef7b-4de1-9314-6e7a345f3bf4',
+    pressTime: '2015-01-13T18:25:43.511Z'
+}
+```
+```js
 var schedule = {
     id: '5a925-6bcc-4a1c-b7b1-5862ab054e4a',
     buttonId: 'f3d2cbb0-ef7b-4de1-9314-6e7a345f3bf4',
