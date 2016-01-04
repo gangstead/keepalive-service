@@ -1,0 +1,42 @@
+{
+    "name": "medi-button-service",
+    "version": "0.0.0",
+    "description": "rest api for button pushing reminder service",
+    "main": "index.js",
+    "scripts": {"start": "node index.js"},
+    "repository": {
+        "type": "git",
+        "url": "git@bitbucket.org:gangstead/medi-button-service.git"
+    },
+    "license": "Copyright Gangstead",
+    "dependencies": {
+        "boom": "^3.1.1",
+        "hapi": "^11.1.4",
+        "hapi-swagger": "^3.0.1",
+        
+        "joi": "^7.1.0",
+        "lodash": "^3.10.1",
+        "good": "^6.4.0",
+        "good-console": "^5.2.0",
+        "halacious": "^3.4.0 "
+    },
+    "devDependencies": {
+        "chai": "^3.4.1",
+        "grunt": "^0.4.5",
+        "grunt-contrib-jshint": "^0.11.2",
+        "grunt-contrib-watch": "~0.6.1",
+        "grunt-cucumber": "^0.3.0",
+        "grunt-exec": "^0.4.6",
+        "grunt-includes": "~0.5.1",
+        "grunt-mocha-cov": "^0.4.0",
+        "grunt-mocha-istanbul": "^2.4.0",
+        "grunt-mocha-test": "^0.12.7",
+        "grunt-sonar-runner": "^2.4.3",
+        "istanbul": "^0.4.1",
+        "matchdep": "^0.3.0",
+        "mocha": "^2.3.4",
+        "supertest": "^1.0.1",
+        "sinon": "^1.17.2",
+        "sinon-chai": "^2.8.0"
+    }
+}
