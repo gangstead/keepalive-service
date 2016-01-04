@@ -3,7 +3,10 @@
     "version": "0.0.0",
     "description": "rest api for button pushing reminder service",
     "main": "index.js",
-    "scripts": {"start": "node index.js"},
+    "scripts": {
+        "start": "node index.js",
+        "test": "mocha --recursive test"
+    },
     "repository": {
         "type": "git",
         "url": "git@bitbucket.org:gangstead/medi-button-service.git"
