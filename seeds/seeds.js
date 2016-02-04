@@ -1,3 +1,3 @@
-module.exports = (knex, Promise) => {
-    return;
-}
+module.exports = (knex) => {
+  return;
+};

@@ -1,0 +1,14 @@
+{
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "expect": false,
+    "assert": false,
+    "sinon": false
+  },
+  "rules": {
+    "no-unused-expressions": 0,
+    "init-declarations": 0
+  }
+}

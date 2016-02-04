@@ -1,3 +1,10 @@
 ---
 "extends":
   - "defaults/configurations/walmart/es6-node"
+
+rules:
+  quotes:
+    - 2
+    - single
+  global-require:
+    - 0
