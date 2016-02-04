@@ -9,3 +9,5 @@ rules:
   global-require: 0
   no-console: 1
   no-magic-numbers: 1
+  no-sync: 2
+  sort-vars: 2
