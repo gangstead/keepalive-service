@@ -1,5 +1,5 @@
 {
-  "name": "medi-button-service",
+  "name": "keepalive-service",
   "version": "0.0.0",
   "description": "rest api for button pushing reminder service",
   "main": "index.js",
