@@ -1,11 +1,16 @@
 'use strict';
 
 exports.register = (server, options, next) => {
+  const knex = server.plugins.db.knex;
+
   server.route({
     method: 'GET',
     path: '/buttons',
     handler(req, reply) {
-      reply('buttons');
+      const p = knex('buttons')
+        .then((buttons) => ({ buttons }));
+
+      reply(p);
     }
   });
 

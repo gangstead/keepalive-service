@@ -1,0 +1,26 @@
+version: '3' #compose version
+services:
+  server:
+    build: .
+    ports:
+     - "3000:3000"
+    volumes:
+     - ".:/server"
+    working_dir: "/server"
+    depends_on:
+      - db
+    environment:
+      PORT: 3000
+      SERVICE_NAME: keepalive
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_PASSWORD: gangstead
+      DB_USER: postgres
+  db:
+    image: "postgres:9.6-alpine"
+    command: "-c fsync=off -c full_page_writes=off"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: gangstead
+      POSTGRES_USER: postgres
