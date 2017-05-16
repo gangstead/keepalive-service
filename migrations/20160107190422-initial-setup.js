@@ -1,6 +1,8 @@
+'use strict';
+
 exports.up = (knex) => {
-  const functionDef =
-    `CREATE OR REPLACE FUNCTION set_updated_at_column()
+  const functionDef
+    = `CREATE OR REPLACE FUNCTION set_updated_at_column()
      RETURNS TRIGGER AS $$
      BEGIN
          NEW.updated_at = now();
@@ -11,6 +13,6 @@ exports.up = (knex) => {
   return knex.raw(functionDef);
 };
 
-exports.down = (knex) => {
+exports.down = () => {
 
 };

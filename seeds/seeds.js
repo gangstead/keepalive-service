@@ -1,3 +1,5 @@
-module.exports = (knex) => {
+'use strict';
+
+module.exports = () => {
   return;
 };

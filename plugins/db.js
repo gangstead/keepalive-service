@@ -1,3 +1,5 @@
+'use strict';
+
 const seeds = require('../seeds/seeds');
 
 exports.register = (server, options, next) => {
@@ -9,7 +11,7 @@ exports.register = (server, options, next) => {
     .then(() => seeds(knex, require('bluebird')))
     .then(() => {
       server.expose('knex', knex);
-      server.log(['info', 'db'], 'Database setup complete');
+      server.log([ 'info', 'db' ], 'Database setup complete');
       next();
     });
 };

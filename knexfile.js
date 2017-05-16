@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   client: 'pg',
   connection: {
@@ -21,4 +23,3 @@ module.exports = {
     directory: './seeds'
   }
 };
-

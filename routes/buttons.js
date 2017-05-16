@@ -1,4 +1,4 @@
-
+'use strict';
 
 exports.register = (server, options, next) => {
   server.route({
@@ -41,12 +41,10 @@ exports.register = (server, options, next) => {
     }
   });
 
-
   next();
 };
 
-
 exports.register.attributes = {
-  name: require('../package.json').name + '-buttons-route',
+  name: `${require('../package.json').name }-buttons-route`,
   version: require('../package.json').version
 };

@@ -1,4 +1,6 @@
-//Load environment variables from '.env' file
+'use strict';
+
+// Load environment variables from '.env' file
 require('dotenv').load();
 
 require('./lib');

@@ -1,18 +1,14 @@
-FROM node:5
+FROM node:7-alpine
+MAINTAINER Gangstead <gangstead@gmail.com>
 
-RUN useradd -ms /bin/bash node
-ADD . /home/node/src
-RUN chown -R node:node /home/node
+RUN apk add --update tini
+ENTRYPOINT ["/sbin/tini", "--"]
 
-RUN rm -rf /home/node/src/node_modules
+ADD ./ /server
+WORKDIR /server
+RUN rm -rf node_modules && npm install
 
-USER node
-ENV HOME /home/node
+EXPOSE 3000:3000
+ENV PORT 3000
 
-WORKDIR /home/node/src
-
-RUN npm install && npm install nodemon@1.3.7
-
-EXPOSE 
-
-CMD ["node", "node_modules/nodemon/bin/nodemon.js", "index.js"]
+CMD ["npm", "start"]

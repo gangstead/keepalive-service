@@ -1,17 +1,22 @@
-medi-button-service
+keepalive-service
 ===================
+
+*Keep track of when you did that thing.  Get an alert when you don't.*
+
+Help remember to do a frequent task (take medicine, walk the dog, weigh yourself).  Get notified when you forget.  Track your progress over time.  Works with physical IOT buttons.
 
 # API
 ### Buttons
 - `POST` `/users/{userId}/buttons`
 - `POST` `/buttons`
 - `GET` `/buttons/{buttonId}`
+- `GET` `/buttons/{buttonId}/stats`
 
 ### Presses
 - `GET|POST` `/buttons/{buttonId}/presses`
 - `GET` `/presses/{pressId}`
 
-### Schedules (aka Prescriptions?)
+### Schedules
 - `GET|POST` `/buttons/{buttonId}/schedules`
 - `GET` `/schedules/{scheduleId}`
 
@@ -21,34 +26,31 @@ medi-button-service
 
 ### User
 - `POST` `/users`
+- `GET` `/users/{userId}/stats`
 
 ### Authentication
-- `POST` `/login` 
-
-### Stats
-- `GET` `/users/{userId}/stats`
-- `GET` `/buttons/{buttonId}/stats`
+- `POST` `/login`
 
 ## Objects
 ```js
-var button = {
+const button = {
     id: 'f3d2cbb0-ef7b-4de1-9314-6e7a345f3bf4',
     name: 'big yellow button',
     type: 'bttn'
 }
 ```
 ```js
-var press = {
+const press = {
     id: 'f8546bc5-39ed-4334-b39e-592ec4666bea'
     buttonId: 'f3d2cbb0-ef7b-4de1-9314-6e7a345f3bf4',
     pressTime: '2015-01-13T18:25:43.511Z'
 }
 ```
 ```js
-var schedule = {
+const schedule = {
     id: '5a925-6bcc-4a1c-b7b1-5862ab054e4a',
     buttonId: 'f3d2cbb0-ef7b-4de1-9314-6e7a345f3bf4',
-    title: 'Ivy\'s Keppra',
+    title: 'Ivy\'s Tylenol',
     frequency: 2,
     frequencyUnit: 'day',
     period: 43200000,   // 12 hours in milliseconds
@@ -62,7 +64,7 @@ var alert = {
     action: "sms|email|webhook",
     sms: "9724142777",      // iff action == sms
     email: "steven@gangstead.com", // iff action email
-    webhook: "http://example.com/mywebhook/123" // iff action = webhook, will POST 
+    webhook: "http://example.com/mywebhook/123" // iff action = webhook, will POST
 }
 ```
 ```js
@@ -74,5 +76,3 @@ var user = {
     confirmed: true
 }
 ```
-
-
