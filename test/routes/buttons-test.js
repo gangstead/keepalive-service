@@ -33,5 +33,42 @@ describe('Buttons route', () => {
           expect(res).to.have.deep.property('result.buttons.length', 3);
         });
     });
+
+    xit('should return buttons filtered by type', () => { // FIXME
+      const buttons = _.times(3, fakes.button);
+      const bttn = fakes.button({ type: 'bttn' });
+
+      return knex('buttons')
+        .insert([ bttn, ...buttons ])
+        .then(() => server.inject({
+          url: '/buttons',
+          qs: {
+            type: 'bttn'
+          }
+        }))
+        .then((res) => {
+          expect(res).to.have.property('statusCode', 200);
+          expect(res).to.have.deep.property('result.buttons.length', 1);
+        });
+    });
+
+    xit('should return an empty array if no buttons match the filter', () => { // FIXME
+      const buttons = _.times(3, fakes.button);
+
+      return knex('buttons')
+        .insert(buttons)
+        .then(() => server.inject({
+          url: '/buttons',
+          qs: {
+            type: 'bttn'
+          }
+        }))
+        .then((res) => {
+          expect(res).to.have.property('statusCode', 200);
+          expect(res).to.have.deep.property('result.buttons.length', 0);
+        });
+    });
+
+    xit('should 401 if not authorized'); // TODO: for when authentication is implemented
   });
 });
