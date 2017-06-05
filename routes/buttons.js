@@ -1,9 +1,12 @@
 'use strict';
 
+const _ = require('lodash');
 const Joi = require('joi');
 
 exports.register = (server, options, next) => {
   const knex = server.plugins.db.knex;
+
+  const formatButton = (b) => _.mapKeys(b, (v, k) => _.camelCase(k));
 
   server.route({
     method: 'GET',
@@ -22,7 +25,7 @@ exports.register = (server, options, next) => {
             qb.where('type', req.query.type);
           }
         })
-        .then((buttons) => ({ buttons }));
+        .then((bs) => ({ buttons: _.map(bs, formatButton) }));
 
       reply(p);
     }
@@ -32,6 +35,7 @@ exports.register = (server, options, next) => {
     method: 'POST',
     path: '/buttons',
     config: {
+      auth: 'noauth',
       validate: {
         payload: {
           button: Joi.object({
@@ -42,10 +46,11 @@ exports.register = (server, options, next) => {
       }
     },
     handler(req, reply) {
+      const button = _.merge(req.payload.button, { user_id: req.auth.credentials.user.id });
       const p = knex('buttons')
-        .insert(req.payload.button)
+        .insert(button)
         .returning('*')
-        .spread((button) => ({ button }));
+        .spread((b) => ({ button: formatButton(b) }));
       reply(p);
     }
   });
@@ -55,14 +60,6 @@ exports.register = (server, options, next) => {
     path: '/users/{userId}/buttons',
     handler(req, reply) {
       reply('buttons');
-    }
-  });
-
-  server.route({
-    method: 'POST',
-    path: '/users/{userId}/buttons',
-    handler: (req, reply) => {
-      reply();
     }
   });
 
@@ -80,7 +77,7 @@ exports.register = (server, options, next) => {
       const p = knex('buttons')
         .first('*')
         .where('id', req.params.buttonId)
-        .then((button) => ({ button }));
+        .then((b) => ({ button: formatButton(b) }));
 
       reply(p);
     }

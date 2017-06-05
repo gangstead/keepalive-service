@@ -7,29 +7,30 @@ Help remember to do a frequent task (take medicine, walk the dog, weigh yourself
 
 # API
 ### Buttons
-- `POST` `/users/{userId}/buttons`
+- `GET` `/buttons`
 - `POST` `/buttons`
+- `GET` `/users/{userId}/buttons` (todo)
 - `GET` `/buttons/{buttonId}`
-- `GET` `/buttons/{buttonId}/stats`
+- `GET` `/buttons/{buttonId}/stats` (todo)
 
 ### Presses
-- `GET|POST` `/buttons/{buttonId}/presses`
-- `GET` `/presses/{pressId}`
+- `GET|POST` `/buttons/{buttonId}/presses` (todo)
+- `GET` `/presses/{pressId}` (todo)
 
 ### Schedules
-- `GET|POST` `/buttons/{buttonId}/schedules`
-- `GET` `/schedules/{scheduleId}`
+- `GET|POST` `/buttons/{buttonId}/schedules` (todo)
+- `GET` `/schedules/{scheduleId}` (todo)
 
 ### Alerts
-- `GET|POST` `/schedules/{scheduleId}/alerts`
-- `GET` `/alerts/{alertId}`
+- `GET|POST` `/schedules/{scheduleId}/alerts` (todo)
+- `GET` `/alerts/{alertId}` (todo)
 
 ### User
 - `POST` `/users`
-- `GET` `/users/{userId}/stats`
+- `GET` `/users/{userId}/stats` (todo)
 
 ### Authentication
-- `POST` `/login`
+- `POST` `/login` (todo)
 
 ## Objects
 ```js

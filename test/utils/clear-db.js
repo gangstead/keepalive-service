@@ -1,7 +1,8 @@
 'use strict';
 
 const tables = [
-  'buttons'
+  'buttons',
+  'users'
 ];
 
 module.exports = (knex) => knex.raw(`TRUNCATE TABLE ${tables.join(',')} CASCADE`);
