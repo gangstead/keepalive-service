@@ -31,8 +31,22 @@ exports.register = (server, options, next) => {
   server.route({
     method: 'POST',
     path: '/buttons',
+    config: {
+      validate: {
+        payload: {
+          button: Joi.object({
+            name: Joi.string().required(),
+            type: Joi.string().required()
+          })
+        }
+      }
+    },
     handler(req, reply) {
-      reply();
+      const p = knex('buttons')
+        .insert(req.payload.button)
+        .returning('*')
+        .spread((button) => ({ button }));
+      reply(p);
     }
   });
 
@@ -55,8 +69,20 @@ exports.register = (server, options, next) => {
   server.route({
     method: 'GET',
     path: '/buttons/{buttonId}',
+    config: {
+      validate: {
+        params: {
+          buttonId: Joi.string().guid()
+        }
+      }
+    },
     handler(req, reply) {
-      reply('buttons');
+      const p = knex('buttons')
+        .first('*')
+        .where('id', req.params.buttonId)
+        .then((button) => ({ button }));
+
+      reply(p);
     }
   });
 
