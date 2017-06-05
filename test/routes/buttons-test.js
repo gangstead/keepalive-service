@@ -34,16 +34,16 @@ describe('Buttons route', () => {
         });
     });
 
-    xit('should return buttons filtered by type', () => { // FIXME
+    it('should return buttons filtered by type', () => { // FIXME
       const buttons = _.times(3, fakes.button);
-      const bttn = fakes.button({ type: 'bttn' });
+      const bttn = fakes.button({ type: 'specialButton' });
 
       return knex('buttons')
         .insert([ bttn, ...buttons ])
         .then(() => server.inject({
-          url: '/buttons',
-          qs: {
-            type: 'bttn'
+          url: {
+            pathname: '/buttons',
+            query: { type: 'specialButton' }
           }
         }))
         .then((res) => {
@@ -52,15 +52,15 @@ describe('Buttons route', () => {
         });
     });
 
-    xit('should return an empty array if no buttons match the filter', () => { // FIXME
+    it('should return an empty array if no buttons match the filter', () => { // FIXME
       const buttons = _.times(3, fakes.button);
 
       return knex('buttons')
         .insert(buttons)
         .then(() => server.inject({
-          url: '/buttons',
-          qs: {
-            type: 'bttn'
+          url: {
+            pathname: '/buttons',
+            query: { type: 'specialButton' }
           }
         }))
         .then((res) => {

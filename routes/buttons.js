@@ -1,13 +1,27 @@
 'use strict';
 
+const Joi = require('joi');
+
 exports.register = (server, options, next) => {
   const knex = server.plugins.db.knex;
 
   server.route({
     method: 'GET',
     path: '/buttons',
+    config: {
+      validate: {
+        query: {
+          type: Joi.string()
+        }
+      }
+    },
     handler(req, reply) {
       const p = knex('buttons')
+        .where((qb) => {
+          if (req.query.type) {
+            qb.where('type', req.query.type);
+          }
+        })
         .then((buttons) => ({ buttons }));
 
       reply(p);

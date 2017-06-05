@@ -83,4 +83,4 @@ Development is done on your local machine, but the tests are run inside of a doc
 1. have git, node, npm, docker, docker-compose installed and the repo cloned
 1. `npm install` - installs npm dependencies
 1. `npm run dcr db-setup` - The first time you run this you might get a ECONNREFUSED if the db is slow to start up.  Just try a couple times.  This command will pull the base node and postgres containers, mount the code, create the database, and run all migration files.  Subsequent runs will only perform new migrations, if present.
-1.
+1. `npm run dcr test` - Run the unit tests
