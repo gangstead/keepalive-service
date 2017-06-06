@@ -150,6 +150,34 @@ describe('Buttons route', () => {
   });
 
   describe('GET /users/{userId}/buttons', () => {
-    xit("should list a user's buttons");
+    it("should list a user's buttons", () => {
+      const users = _.times(2, fakes.user);
+      const buttons = _.times(4, (i) => fakes.button({ user_id: users[i % 2].id }));
+
+      return knex('users').insert(users)
+        .then(() => knex('buttons').insert(buttons))
+        .then(() => server.inject({
+          url: `/users/${users[0].id}/buttons`
+        }))
+        .then((res) => {
+          expect(res).to.have.property('statusCode', 200);
+          expect(res).to.have.deep.property('result.buttons.length', 2);
+        });
+    });
+
+    it("should list a user's no buttons", () => {
+      const users = _.times(3, fakes.user);
+      const buttons = _.times(4, (i) => fakes.button({ user_id: users[i % 2].id }));
+
+      return knex('users').insert(users)
+        .then(() => knex('buttons').insert(buttons))
+        .then(() => server.inject({
+          url: `/users/${users[2].id}/buttons`
+        }))
+        .then((res) => {
+          expect(res).to.have.property('statusCode', 200);
+          expect(res).to.have.deep.property('result.buttons.length', 0);
+        });
+    });
   });
 });

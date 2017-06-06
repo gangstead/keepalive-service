@@ -9,7 +9,7 @@ Help remember to do a frequent task (take medicine, walk the dog, weigh yourself
 ### Buttons
 - `GET` `/buttons`
 - `POST` `/buttons`
-- `GET` `/users/{userId}/buttons` (todo)
+- `GET` `/users/{userId}/buttons`
 - `GET` `/buttons/{buttonId}`
 - `GET` `/buttons/{buttonId}/stats` (todo)
 

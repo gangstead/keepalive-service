@@ -55,11 +55,23 @@ exports.register = (server, options, next) => {
     }
   });
 
+  // This is public on purpose.  Private buttons premium feature?
   server.route({
     method: 'GET',
     path: '/users/{userId}/buttons',
+    config: {
+      validate: {
+        params: {
+          userId: Joi.string().guid()
+        }
+      }
+    },
     handler(req, reply) {
-      reply('buttons');
+      const p = knex('buttons')
+        .where('user_id', req.params.userId)
+        .then((bs) => ({ buttons: _.map(bs, formatButton) }));
+
+      reply(p);
     }
   });
 
