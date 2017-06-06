@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const moment = require('moment');
 const uuid = require('uuid');
 
 const randomName = () =>
@@ -22,5 +23,11 @@ module.exports = {
     id: uuid(),
     name: randomName(),
     email: `${uuid()}@gangstead.com`
+  }, props),
+  press: (props) => _.merge({
+    id: uuid(),
+    user_id: uuid(),
+    button_id: uuid(),
+    press_time: moment().toISOString()
   }, props)
 };

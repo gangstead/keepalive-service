@@ -14,8 +14,9 @@ Help remember to do a frequent task (take medicine, walk the dog, weigh yourself
 - `GET` `/buttons/{buttonId}/stats` (todo)
 
 ### Presses
-- `GET|POST` `/buttons/{buttonId}/presses` (todo)
-- `GET` `/presses/{pressId}` (todo)
+- `POST` `/presses`
+- `GET` `/presses/{pressId}`
+- `GET` `/buttons/{buttonId}/presses`
 
 ### Schedules
 - `GET|POST` `/buttons/{buttonId}/schedules` (todo)
@@ -44,7 +45,8 @@ const button = {
 const press = {
     id: 'f8546bc5-39ed-4334-b39e-592ec4666bea'
     buttonId: 'f3d2cbb0-ef7b-4de1-9314-6e7a345f3bf4',
-    pressTime: '2015-01-13T18:25:43.511Z'
+    pressTime: '2015-01-13T18:25:43.511Z',
+    userId: 'd5e39959-c359-4ef2-b9e5-67e0628449f4'
 }
 ```
 ```js
@@ -73,7 +75,6 @@ var user = {
     id: 'd5e39959-c359-4ef2-b9e5-67e0628449f4',
     name: 'Steven Gangstead',
     email: 'steven@gangstead.com',
-    login: 'gangstead',
     confirmed: true
 }
 ```
