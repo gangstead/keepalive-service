@@ -86,3 +86,8 @@ Development is done on your local machine, but the tests are run inside of a doc
 1. `npm install` - installs npm dependencies
 1. `npm run dcr db-setup` - The first time you run this you might get a ECONNREFUSED if the db is slow to start up.  Just try a couple times.  This command will pull the base node and postgres containers, mount the code, create the database, and run all migration files.  Subsequent runs will only perform new migrations, if present.
 1. `npm run dcr test` - Run the unit tests
+
+# Running with the front end
+Want to run everything locally?  Start the service and database running in docker, then start the front end development server.
+- In one console tab start the service with `npm run dcr start`
+- In another console tab start the front end, [keepalive-web](https://github.com/gangstead/keepalive-web), with `npm run start`

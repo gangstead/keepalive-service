@@ -10,7 +10,7 @@
     "knex": "knex",
     "lint": "eslint . --fix",
     "db-setup": "node scripts/db-setup.js",
-    "dcr": "docker-compose run --rm server npm run"
+    "dcr": "docker-compose run --rm --service-ports server npm run"
   },
   "repository": {
     "type": "git",
