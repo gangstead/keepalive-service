@@ -3,13 +3,11 @@
 const hapiAuthBasic = require('hapi-auth-basic');
 
 exports.register = (server, options, next) => {
-  const knex = server.plugins.db.knex;
+  const userLogin = server.plugins.userLogin;
 
-  // TODO: Actual Auth.  This just returns if you put in a valid user id
+  // TODO: Actual Auth.  Basic auth is just a placeholder
   const validate = (request, username, password, callback) => {
-    return knex('users')
-      .first('*')
-      .where('id', username)
+    return userLogin.login({ email: username, password })
       .then((user) => {
         if (!user) {
           return callback(null, false);

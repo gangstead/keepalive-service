@@ -9,12 +9,14 @@ const serverSetup = require('../utils/server-setup');
 describe('Buttons route', () => {
   let server;
   let knex;
+  let userLogin;
 
   before(() => {
     return serverSetup()
       .then((s) => {
         server = s;
         knex = s.plugins.db.knex;
+        userLogin = s.plugins.userLogin;
       });
   });
 
@@ -80,7 +82,7 @@ describe('Buttons route', () => {
     it('should create buttons', () => {
       const user = fakes.user();
 
-      return knex('users').insert(user)
+      return userLogin.create(user)
         .then(() => server.inject({
           method: 'POST',
           url: '/buttons',

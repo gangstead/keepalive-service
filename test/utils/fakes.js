@@ -12,6 +12,13 @@ const randomName = () =>
     Math.floor(Math.random() * (99)) + 1
   ].join(' ');
 
+const password = () => _.flatten([
+  _.times(7, () => _.sample('ABCDEFGHIJKLMNOPQRSTUVWXYZ')),
+  _.sample('abcdefghijklmnopqrstuvwxyz'),
+  _.sample('1234567890'),
+  _.sample('~!@#$%^&*()_+-={}|[];:<>?,./')
+]).join('');
+
 module.exports = {
   button: (props) => _.merge({
     id: uuid(),
@@ -19,11 +26,23 @@ module.exports = {
     type: 'bttn',
     user_id: uuid()
   }, props),
-  user: (props) => _.merge({
-    id: uuid(),
-    name: randomName(),
-    email: `${uuid()}@gangstead.com`
-  }, props),
+  user: (props) => {
+    const name = randomName();
+    return _.merge({
+      id: uuid(),
+      name,
+      email: `${name.replace(/\ /g, '')}@gangstead.com`,
+      password: password()
+    }, props);
+  },
+  newUser: (props) => {
+    const name = randomName();
+    return _.merge({
+      name,
+      email: `${name.replace(/\ /g, '')}@gangstead.com`,
+      password: password()
+    }, props);
+  },
   press: (props) => _.merge({
     id: uuid(),
     user_id: uuid(),

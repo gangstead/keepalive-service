@@ -2,6 +2,6 @@
 
 module.exports = {
   noauthHeader: (user) => ({
-    authorization: `Basic ${new Buffer(`${user.id}:nopassword`).toString('base64')}`
+    authorization: `Basic ${new Buffer(`${user.email}:${user.password}`).toString('base64')}`
   })
 };

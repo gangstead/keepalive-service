@@ -75,7 +75,7 @@ var user = {
     id: 'd5e39959-c359-4ef2-b9e5-67e0628449f4',
     name: 'Steven Gangstead',
     email: 'steven@gangstead.com',
-    confirmed: true
+    password: 'rawpassword' // raw password when posting a new user, hash is stored in db
 }
 ```
 
