@@ -31,7 +31,7 @@ Help remember to do a frequent task (take medicine, walk the dog, weigh yourself
 - `GET` `/users/{userId}/stats` (todo)
 
 ### Authentication
-- `POST` `/login` (todo)
+- `POST` `/login`
 
 ## Objects
 ```js

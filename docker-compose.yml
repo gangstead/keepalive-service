@@ -16,6 +16,7 @@ services:
       DB_PORT: 5432
       DB_PASSWORD: gangstead
       DB_USER: postgres
+      JWT_SECRET: totallysecretkey4b508ce8-4b17-4eae-a9ab-ec89785972f3
   db:
     image: "postgres:9.6-alpine"
     command: "-c fsync=off -c full_page_writes=off"

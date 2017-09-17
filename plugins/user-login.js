@@ -1,6 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
+const B = require('bluebird');
+const jwtSign = B.promisify(require('jsonwebtoken').sign);
 
 exports.register = (server, options, next) => {
   const knex = server.plugins.db.knex;
@@ -18,12 +20,26 @@ exports.register = (server, options, next) => {
     },
     login(user) {
       return knex
-        .first()
+        .first('id', 'email', 'name')
         .from('users')
         .where({
           email: user.email,
           password: knex.raw('crypt(?, password)', [ user.password ]),
           deleted_at: null
+        })
+        .then((foundUser) => {
+          if (foundUser) {
+            return jwtSign(
+              { user: foundUser },
+              process.env.JWT_SECRET,
+              {
+                algorithm: 'HS256',
+                expiresIn: '30 days'
+              }
+            )
+            .then((token) => _.merge({ token }, foundUser));
+          }
+          return foundUser;
         });
     }
   });
