@@ -7,17 +7,21 @@ exports.register = (server, options, next) => {
   const knex = server.plugins.db.knex;
 
   const jwtSchema = Joi.object({
-    email: Joi.string().email().lowercase().required()
-  });
+    user: Joi.object({
+      email: Joi.string().email().lowercase().required()
+    }).unknown()
+  }).unknown();
 
   const validateFunc = (decoded, request, callback) => {
-    const validatedJwt = jwtSchema.validate(decoded.user);
-    if (validatedJwt.error) {
+    const { error: validateError, value: validatedJwt } = Joi.validate(decoded, jwtSchema);
+
+    if (validateError) {
+      server.log([ 'jwt' ], validateError);
       return callback(Boom.badRequest('Did you mess with the JWT?'));
     }
     return knex('users')
       .first()
-      .where('email', validatedJwt.email)
+      .where('email', validatedJwt.user.email)
       .then((user) => {
         if (!user) {
           return callback(null, false);

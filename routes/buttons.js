@@ -35,7 +35,7 @@ exports.register = (server, options, next) => {
     method: 'POST',
     path: '/buttons',
     config: {
-      auth: 'noauth',
+      auth: 'jwt',
       validate: {
         payload: {
           button: Joi.object({

@@ -1,9 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-const authHeader = require('../utils/auth').noauthHeader;
+const authHeader = require('../utils/auth').jwtAuth;
 const expect = require('chai').expect;
 const fakes = require('../utils/fakes');
+const moment = require('moment');
 const serverSetup = require('../utils/server-setup');
 
 describe('Buttons route', () => {
@@ -86,7 +87,7 @@ describe('Buttons route', () => {
         .then(() => server.inject({
           method: 'POST',
           url: '/buttons',
-          headers: authHeader(user),
+          headers: authHeader({ user }),
           payload: {
             button: {
               name: 'mybutton',
@@ -113,7 +114,7 @@ describe('Buttons route', () => {
         .inject({
           method: 'POST',
           url: '/buttons',
-          headers: authHeader(user),
+          headers: authHeader({ user }),
           payload: {
             button: {
               name: 'mybutton',
@@ -121,6 +122,33 @@ describe('Buttons route', () => {
             }
           }
         })
+        .then((res) => {
+          expect(res).to.have.property('statusCode', 401);
+          return knex('buttons');
+        })
+        .then((buttons) => {
+          expect(buttons).to.have.property('length', 0);
+        });
+    });
+
+    it('should not accept old token', () => {
+      const user = fakes.user();
+
+      return userLogin.create(user)
+        .then(() => server.inject({
+          method: 'POST',
+          url: '/buttons',
+          headers: authHeader({
+            user,
+            exp: moment().subtract(1, 'hour').unix()
+          }),
+          payload: {
+            button: {
+              name: 'mybutton',
+              type: 'bttn'
+            }
+          }
+        }))
         .then((res) => {
           expect(res).to.have.property('statusCode', 401);
           return knex('buttons');
