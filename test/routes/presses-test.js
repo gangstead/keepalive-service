@@ -1,9 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-const authHeader = require('../utils/auth').noauthHeader;
+const jwtHeader = require('../utils/auth').jwtHeader;
 const expect = require('chai').expect;
 const fakes = require('../utils/fakes');
+const moment = require('moment');
 const serverSetup = require('../utils/server-setup');
 
 describe('Presses route', () => {
@@ -32,7 +33,7 @@ describe('Presses route', () => {
         .then(() => server.inject({
           method: 'POST',
           url: '/presses',
-          headers: authHeader(user),
+          headers: jwtHeader({ user }),
           payload: {
             press: {
               buttonId: button.id
@@ -58,13 +59,41 @@ describe('Presses route', () => {
         .inject({
           method: 'POST',
           url: '/buttons',
-          headers: authHeader(user),
+          headers: jwtHeader({ user }),
           payload: {
             press: {
               buttonId: button.id
             }
           }
         })
+        .then((res) => {
+          expect(res).to.have.property('statusCode', 401);
+          return knex('presses');
+        })
+        .then((presses) => {
+          expect(presses).to.have.property('length', 0);
+        });
+    });
+
+    it('should not accept expired header', () => {
+      const user = fakes.user();
+      const button = fakes.button({ user_id: user.id });
+
+      return userLogin.create(user)
+        .then(() => knex('buttons').insert(button))
+        .then(() => server.inject({
+          method: 'POST',
+          url: '/presses',
+          headers: jwtHeader({
+            user,
+            exp: moment().subtract(1, 'minute').unix()
+          }),
+          payload: {
+            press: {
+              buttonId: button.id
+            }
+          }
+        }))
         .then((res) => {
           expect(res).to.have.property('statusCode', 401);
           return knex('presses');

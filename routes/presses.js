@@ -12,7 +12,7 @@ exports.register = (server, options, next) => {
     method: 'POST',
     path: '/presses',
     config: {
-      auth: 'noauth',
+      auth: 'jwt',
       validate: {
         payload: {
           press: Joi.object({

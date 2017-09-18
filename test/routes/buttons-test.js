@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const authHeader = require('../utils/auth').jwtAuth;
+const jwtHeader = require('../utils/auth').jwtHeader;
 const expect = require('chai').expect;
 const fakes = require('../utils/fakes');
 const moment = require('moment');
@@ -87,7 +87,7 @@ describe('Buttons route', () => {
         .then(() => server.inject({
           method: 'POST',
           url: '/buttons',
-          headers: authHeader({ user }),
+          headers: jwtHeader({ user }),
           payload: {
             button: {
               name: 'mybutton',
@@ -114,7 +114,7 @@ describe('Buttons route', () => {
         .inject({
           method: 'POST',
           url: '/buttons',
-          headers: authHeader({ user }),
+          headers: jwtHeader({ user }),
           payload: {
             button: {
               name: 'mybutton',
@@ -138,7 +138,7 @@ describe('Buttons route', () => {
         .then(() => server.inject({
           method: 'POST',
           url: '/buttons',
-          headers: authHeader({
+          headers: jwtHeader({
             user,
             exp: moment().subtract(1, 'hour').unix()
           }),
