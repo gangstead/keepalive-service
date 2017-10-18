@@ -27,7 +27,7 @@ exports.register = (server, options, next) => {
           user: Joi.object({
             name: Joi.string().required(),
             email: Joi.string().email().required(),
-            password: Joi.string().regex(userLogin.PASSWORD_STRENGTH, 'password strength').required()
+            password: Joi.string().regex(userLogin.PASSWORD_STRENGTH, 'password must have 1 each: upper, lower, number, special.  Length > 10').required() // eslint-disable-line max-len
           })
         }
       }
